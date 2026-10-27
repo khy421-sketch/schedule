@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { User, Scheduler, Schedule, Invitation } from './types';
-import { api, getStoredToken, setStoredToken, clearStoredToken } from './utils/api';
+import { api, getStoredToken, setStoredToken, clearStoredToken, ensureFirestoreSeeded } from './utils/api';
 import { Header } from './components/Header';
 import { CalendarView } from './components/CalendarView';
 import { ScheduleModal } from './components/ScheduleModal';
@@ -110,6 +110,13 @@ export default function App() {
     });
 
     const initAuth = async () => {
+      try {
+        await ensureFirestoreSeeded();
+        await loadDemoUsers();
+      } catch (e) {
+        console.warn('Seeding check:', e);
+      }
+
       const token = getStoredToken();
       if (token) {
         try {

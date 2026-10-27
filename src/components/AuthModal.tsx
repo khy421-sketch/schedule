@@ -116,8 +116,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-5 space-y-3.5">
           {error && (
-            <div className="p-3 rounded-2xl bg-rose-50 border-2 border-rose-200 text-rose-700 text-xs font-bold">
-              {error}
+            <div className="p-3 rounded-2xl bg-rose-50 border-2 border-rose-200 text-rose-700 text-xs font-bold space-y-2">
+              <div>{error}</div>
+              {mode === 'login' && error.includes('존재하지 않는') && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode('register');
+                    setError('');
+                    if (!name) setName(username);
+                  }}
+                  className="px-3 py-1.5 bg-amber-200 hover:bg-amber-300 text-amber-950 font-black rounded-xl border-2 border-amber-400 text-xs flex items-center gap-1 shadow-[0_2px_0_0_#f59e0b] btn-3d"
+                >
+                  <span>✨ '{username}' 아이디로 회원가입 진행하기</span>
+                </button>
+              )}
             </div>
           )}
 
