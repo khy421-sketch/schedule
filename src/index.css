@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'NanumSquareRound', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #F8FAF9;
+    color: #334155;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Custom 3D Pastel button and card utilities */
+.btn-3d {
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-3d:active:not(:disabled) {
+  transform: translateY(4px) !important;
+  box-shadow: 0 0 0 0 transparent !important;
+}
+
+.card-3d-hover {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+}
+.card-3d-hover:hover {
+  transform: translateY(-2px);
+}

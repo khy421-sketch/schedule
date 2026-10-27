@@ -1,0 +1,6 @@
+{
+  "name": "CozySchedule",
+  "description": "파스텔 3D 감성의 멀티 공유 스케줄러 - 개인과 그룹 일정을 선택적 공유 및 권한별로 안전하게 관리하는 캘린더 서비스",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

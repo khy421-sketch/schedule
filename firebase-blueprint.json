@@ -1,0 +1,99 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "사용자 프로필 정보",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "username": { "type": "string", "maxLength": 50 },
+        "name": { "type": "string", "maxLength": 50 },
+        "avatar": { "type": "string", "maxLength": 10 },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "status": { "type": "string", "enum": ["active", "suspended"] },
+        "created_at": { "type": "string" }
+      },
+      "required": ["id", "username", "name", "role", "status"]
+    },
+    "Scheduler": {
+      "title": "Scheduler",
+      "description": "독립된 스케줄러 그룹 캘린더",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "icon": { "type": "string", "maxLength": 10 },
+        "color": { "type": "string", "maxLength": 20 },
+        "owner_id": { "type": "string" },
+        "created_at": { "type": "string" }
+      },
+      "required": ["id", "name", "owner_id", "color"]
+    },
+    "Schedule": {
+      "title": "Schedule",
+      "description": "선택적 공유 및 반복 지원 캘린더 일정",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "scheduler_id": { "type": "string" },
+        "author_id": { "type": "string" },
+        "author_name": { "type": "string", "maxLength": 50 },
+        "author_username": { "type": "string", "maxLength": 50 },
+        "title": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "start_date": { "type": "string", "maxLength": 10 },
+        "end_date": { "type": "string", "maxLength": 10 },
+        "start_time": { "type": "string", "maxLength": 5 },
+        "end_time": { "type": "string", "maxLength": 5 },
+        "is_all_day": { "type": "boolean" },
+        "is_shared": { "type": "boolean" },
+        "repeat_type": { "type": "string", "enum": ["none", "weekly", "monthly", "yearly"] },
+        "color": { "type": "string", "maxLength": 20 },
+        "category": { "type": "string", "maxLength": 50 },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
+      },
+      "required": ["id", "scheduler_id", "author_id", "title", "start_date", "is_shared"]
+    },
+    "Invitation": {
+      "title": "Invitation",
+      "description": "스케줄러 멤버 초대 요청",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "scheduler_id": { "type": "string" },
+        "scheduler_name": { "type": "string", "maxLength": 100 },
+        "scheduler_icon": { "type": "string", "maxLength": 10 },
+        "scheduler_color": { "type": "string", "maxLength": 20 },
+        "from_user_id": { "type": "string" },
+        "from_username": { "type": "string", "maxLength": 50 },
+        "from_user_name": { "type": "string", "maxLength": 50 },
+        "to_user_id": { "type": "string" },
+        "to_username": { "type": "string", "maxLength": 50 },
+        "role": { "type": "string", "enum": ["owner", "editor", "viewer"] },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected"] },
+        "created_at": { "type": "string" }
+      },
+      "required": ["id", "scheduler_id", "from_user_id", "to_user_id", "role", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "사용자 프로필 문서"
+    },
+    "/schedulers/{schedulerId}": {
+      "schema": "Scheduler",
+      "description": "스케줄러 그룹 캘린더 문서"
+    },
+    "/schedules/{scheduleId}": {
+      "schema": "Schedule",
+      "description": "일정 문서 (is_shared 설정 포함)"
+    },
+    "/invitations/{invitationId}": {
+      "schema": "Invitation",
+      "description": "초대장 문서"
+    }
+  }
+}
